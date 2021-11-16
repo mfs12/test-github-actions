@@ -10,12 +10,13 @@ jobs:
     runs-on: "ubuntu-latest"
     env:
       JEST_VERBOSE: ${{ secrets.JEST_VERBOSE }}
+      IS_PRERELEASE: ${{ contains(github.ref_name, '-pre') || contains(github.ref_name, '-rc') }}
 
     steps:
       - name: "Checkout source code"
         uses: "actions/checkout@v2"
         with:
-          lfs: true
+          lfs: false
           fetch-depth: 0
 
       - name: Install toolchain
@@ -34,7 +35,7 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           title: "main-${{ github.ref_name }}"
-          prerelease: false
+          prerelease: ${{ env.IS_PRERELEASE }}
           files: |
             main
         id: "automatic_releases"
