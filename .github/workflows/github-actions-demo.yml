@@ -4,10 +4,12 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  create
 
 env:
   POSTGRES_HOST: postgres
   POSTGRES_PORT: 5432
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   Explore-GitHub-Actions:
