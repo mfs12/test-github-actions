@@ -19,8 +19,17 @@ jobs:
           lfs: true
           fetch-depth: 0
 
-      - run: echo "do something"
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Install toolchain
+        run:
+          sudo apt-get install -y gcc-arm-none-eabi
+      - run: echo "💡 Toolchain was installed."
+      - name: Build project
+        run:
+          make all CROSS_COMPILE=arm-none-eabi-
+
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
