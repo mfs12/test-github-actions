@@ -23,7 +23,7 @@ jobs:
 
       - name: Install toolchain
         run:
-          apt-get install -y gcc-arm-none-eabi
+          sudo apt-get install -y gcc-arm-none-eabi
       - run: echo "💡 Toolchain was installed."
       - name: Build project
         run:
