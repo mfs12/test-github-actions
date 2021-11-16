@@ -1,0 +1,30 @@
+---
+name: "run build"
+
+on:
+  push: [ 'main', 'master' ]
+  pull_request: [ 'main', 'master' ]
+  create:
+
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout source code"
+        uses: "actions/checkout@v2"
+        with:
+          lfs: false
+          fetch-depth: 0
+
+      - name: Install toolchain
+        run:
+          sudo apt-get install -y gcc-arm-none-eabi
+      - run: echo "💡 Toolchain was installed."
+      - name: Build project
+        run:
+          make all CROSS_COMPILE=arm-none-eabi-
+
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
