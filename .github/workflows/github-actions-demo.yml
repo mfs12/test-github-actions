@@ -1,5 +1,6 @@
 name: GitHub Actions Demo
 on:
+  create:
   push:
     branches: [ main ]
   pull_request:
